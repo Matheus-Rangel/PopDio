@@ -59,18 +59,24 @@ class Dio(db.Model):
     __tablename__ = 'dio'
 
     local = db.relationship(Local)
-    num_portas = 
+
+class CaboFibra(db.Model):
+    __tablename__ = 'cabo_fibra'
+    nome = db.Column(db.Text)
+    quantidade_fibras = db.Column(db.Integer, nullable=False)
+    #TODO: Verificar as informações de uma cabo de fibra optica
+
 class DioPorta(db.Model):
     __tablename__ = 'dio_porta'
 
-    dio = db.relationship(Dio)
-    dio_id = db.Column(db.Integer, db.ForeignKey('dio.id'), nullable=False)
-    
     local_destino = db.relationship(Local)
     local_destino_id = db.Column(db.Integer, db.ForeignKey('local.id'))
     
-    fibra = db.Column(db.Integer, nullable=False) 
-    fibra_destino = 
+    dio = db.relationship(Dio)
+    dio_id = db.Column(db.Integer, db.ForeignKey('dio.id'), nullable=False)
+    
+    fibra_grupo = db.Column(db.Integer, nullable=False)
+    fibra_numero = db.Column(db.Integer, nullable=False)
 
     switch_porta = db.Column(db.String(128), nullable=True)
     estado_link =  
