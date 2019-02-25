@@ -1,0 +1,4 @@
+docker run -p 8000:80 --link postgres-dev:postgres\
+    -e "PGADMIN_DEFAULT_EMAIL=matheus_rangel@ufrn.edu.br" \
+    -e "PGADMIN_DEFAULT_PASSWORD=123456" \
+    -d dpage/pgadmin4 

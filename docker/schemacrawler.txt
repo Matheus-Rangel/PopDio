@@ -1,0 +1,13 @@
+schemacrawler \
+-server=postgresql -host=postgres \
+-user=schemacrawler -password=schemacrawler \
+-database=schemacrawler \
+-infolevel=standard -routines= -command=schema \
+-outputformat=png \
+-o /share/schema.png
+
+docker run --link postgres-dev:postgres \
+-v /home/matheus/Documentos/Projetos/pop_dio/diagram:/diagram \
+--rm -i -t \
+--entrypoint=/opt/schemacrawler/schemacrawler-shell.sh \
+schemacrawler/schemacrawler

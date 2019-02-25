@@ -1,6 +1,5 @@
-from puppycompanyblog import db,login_manager
-from datetime import datetime
-from werkzeug.security import generate_password_hash,check_password_hash
+from pop_fibras import db, login_manager
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 @login_manager.user_loader
@@ -9,15 +8,13 @@ def load_user(user_id):
 
 class User(db.Model, UserMixin):
 
-    __tablename__ = 'users'
+    __tablename__ = 'user'
 
     id = db.Column(db.Integer, primary_key = True)
     profile_image = db.Column(db.String(20), nullable=False, default='default_profile.png')
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
     password_hash = db.Column(db.String(128))
-    # This connects BlogPosts to a User Author.
-    posts = db.relationship('BlogPost', backref='author', lazy=True)
 
     def __init__(self, email, username, password):
         self.email = email
@@ -25,61 +22,80 @@ class User(db.Model, UserMixin):
         self.password_hash = generate_password_hash(password)
 
     def check_password(self,password):
-        # https://stackoverflow.com/questions/23432478/flask-generate-password-hash-not-constant-output
-        return check_password_hash(self.password_hash,password)
+        return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
         return f"UserName: {self.username}"
 
-class BlogPost(db.Model):
-    # Setup the relationship to the User table
-    users = db.relationship(User)
-
-    # Model for the Blog Posts on Website
-    id = db.Column(db.Integer, primary_key=True)
-    # Notice how we connect the BlogPost to a particular author
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    title = db.Column(db.String(140), nullable=False)
-    text = db.Column(db.Text, nullable=False)
-
-    def __init__(self, title, text, user_id):
-        self.title = title
-        self.text = text
-        self.user_id =user_id
-
-
-    def __repr__(self):
-        return f"Post Id: {self.id} --- Date: {self.date} --- Title: {self.title}"
-
 class Local(db.Model):
-    nome = dio_id = db.Column(db.Integer, db.ForeignKey('dio.id'), nullable=False) 
+    __tablename__ = 'local'
+    id = db.Column(db.Integer, primary_key = True)
+    nome = db.Column(db.String(64), nullable=False) 
+    observacao = db.Column(db.Text, nullable=False)
+    def __repr__(self):
+        return f"Nome: {self.nome}"
 
 class Dio(db.Model):
     __tablename__ = 'dio'
-
+    id = db.Column(db.Integer, primary_key = True)
     local = db.relationship(Local)
+    local_id = db.Column(db.Integer, db.ForeignKey('local.id'), nullable=False)
+
+    numero_portas = db.Column(db.Integer, nullable=False)
+    nome = db.Column(db.String(64), nullable=False)
+    observacao = db.Column(db.Text, nullable=False)
+    def __repr__(self):
+        return f"Nome: {self.nome}, Portas: {self.numero_portas}, Local: {self.local.nome}"
 
 class CaboFibra(db.Model):
     __tablename__ = 'cabo_fibra'
+    id = db.Column(db.Integer, primary_key = True)
     nome = db.Column(db.Text)
     quantidade_fibras = db.Column(db.Integer, nullable=False)
-    #TODO: Verificar as informações de uma cabo de fibra optica
+    def __repr__(self):
+        return f"Nome: {self.nome}"
+
+class EstadoLink(db.Model):
+    __tablename__ = 'estado_link'
+    
+    id = db.Column(db.Integer, primary_key = True)
+    nome = db.Column(db.String(64), nullable=False)
+    observacao = db.Column(db.Text, nullable=True)
+    cor = db.Column(db.String(7), nullable=True)
+    def __repr__(self):
+        return f"Nome: {self.nome}"
 
 class DioPorta(db.Model):
     __tablename__ = 'dio_porta'
-
-    local_destino = db.relationship(Local)
-    local_destino_id = db.Column(db.Integer, db.ForeignKey('local.id'))
+    id = db.Column(db.Integer, primary_key = True)
+    last_user = db.relationship(User)
+    last_user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     
+    porta_destino = db.relationship('DioPorta')
+    porta_destino_id = db.Column(db.Integer, db.ForeignKey('dio_porta.id'), nullable=True)
+    local_destino = db.relationship(Local)
+    local_destino_id = db.Column(db.Integer, db.ForeignKey('local.id'), nullable=False)
+
     dio = db.relationship(Dio)
     dio_id = db.Column(db.Integer, db.ForeignKey('dio.id'), nullable=False)
+    numero_porta = db.Column(db.Integer, nullable=False)
     
-    fibra_grupo = db.Column(db.Integer, nullable=False)
-    fibra_numero = db.Column(db.Integer, nullable=False)
+    estado_link = db.relationship(EstadoLink)
+    estado_link_id = db.Column(db.Integer, db.ForeignKey('estado_link.id'), nullable=True)
+
+    fibra_cabo = db.relationship(CaboFibra)
+    fibra_cabo_id = db.Column(db.Integer, db.ForeignKey('cabo_fibra.id'), nullable=True)
+
+    fibra_grupo = db.Column(db.Integer, nullable=True)
+    fibra_numero = db.Column(db.Integer, nullable=True)
 
     switch_porta = db.Column(db.String(128), nullable=True)
-    estado_link =  
-    estado_fibra
+    observacao = db.Column(db.Text, nullable=True)
 
-class Fibra(db.Model):
+    bypass = db.Column(db.Boolean, nullable = False)
+    porta_bypass = db.relationship('DioPorta')
+    porta_bypass_id = db.Column(db.Integer, db.ForeignKey('dio_porta.id'), nullable=True)
+
+    
+    def __repr__(self):
+        return f"Destino: {self.local_destino.nome}, Estado: {self.estado_link.nome}"
