@@ -9,4 +9,3 @@ def authenticate(username, password):
 def identity(payload):
     user_id = payload['identity']
     return User.query.filter_by(id=user_id).first()
-
