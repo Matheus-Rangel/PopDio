@@ -10,14 +10,11 @@ class User(db.Model, UserMixin):
 
     __tablename__ = 'user'
 
-    id = db.Column(db.Integer, primary_key = True)
-    profile_image = db.Column(db.String(20), nullable=False, default='default_profile.png')
-    email = db.Column(db.String(64), unique=True, index=True)
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True, index=True)
     password_hash = db.Column(db.String(128))
 
-    def __init__(self, email, username, password):
-        self.email = email
+    def __init__(self, username, password):
         self.username = username
         self.password_hash = generate_password_hash(password)
 
@@ -27,13 +24,19 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"UserName: {self.username}"
 
+    def json(self):
+        return {'username':self.username}
+
 class Local(db.Model):
     __tablename__ = 'local'
     id = db.Column(db.Integer, primary_key = True)
-    nome = db.Column(db.String(64), nullable=False) 
+    nome = db.Column(db.String(64), nullable=False, unique=True, index=True) 
     observacao = db.Column(db.Text, nullable=False)
     def __repr__(self):
         return f"Nome: {self.nome}"
+    
+    def json(self):
+        return {'nome':self.nome, 'observacao':self.observacao}
 
 class Dio(db.Model):
     __tablename__ = 'dio'

@@ -5,7 +5,7 @@ POSTGRES = {
     'host': 'localhost',
     'port': '5432',
 }
-class Config(object):
+class Config():
     DEBUG = False
     TESTING = False
     SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
