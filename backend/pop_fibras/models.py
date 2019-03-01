@@ -94,7 +94,6 @@ class Dio(db.Model):
     local = db.relationship(Local, cascade='delete')
     local_id = db.Column(db.Integer, db.ForeignKey('local.id'), nullable=False)
 
-    numero_portas = db.Column(db.Integer, nullable=False)
     nome = db.Column(db.String(64), nullable=False)
     observacao = db.Column(db.Text, nullable=False)
     portas = db.relationship("DioPorta", back_populates="dio")
@@ -103,12 +102,12 @@ class Dio(db.Model):
         self.nome = nome
         self.numero_portas = numero_portas
         self.observacao = observacao
-        
+    
     def to_json(self):
         return {
             'id':self.id,
             'local':self.local.to_json(), 
-            'numero_portas':self.numero_portas,
+            'numero_portas': len(self.portas)
             'nome':self.nome,
             'observacao':self.observacao,
         }

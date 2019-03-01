@@ -42,17 +42,24 @@ class DioResource(Resource):
             return {'message': 'Dio {} already exists in this local.'.format(data['nome'])}
         local = Local.query.filter_by(id=data['local_id']).first()
         if not local:
-            return {'message': 'Invalid Local Id'.format(data['nome'])}
-        dio = Dio(nome=data['nome'], observacao=data['observacao'], local=local, numero_portas=data['numero_portas'])
+            return {'message': 'Invalid Local Id'}
+        dio = Dio(nome=data['nome'], observacao=data['observacao'], local=local)
+        dio
         try:
             dio.save()
             return {
-                'message': 'Local {} was created'.format(data['nome']),
+                'message': 'Dio {} was created'.format(data['nome']),
                 }
         except e:
             return {'message': 'Something went wrong'}, 500
     @jwt_required
     def update():
-
+        data = dio_update_parser.parse_args()
+        dio = Dio.query.filter_by(id=data['id']).first()
+        if not dio:
+            return {'message': 'Invalid Dio Id'}
+        dio.nome = data['nome']
+        if dio
+        
     @jwt_required
     def delete():
