@@ -1,4 +1,3 @@
-from flask import Resource
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import (create_access_token, 
                                 create_refresh_token, 
@@ -7,24 +6,31 @@ from flask_jwt_extended import (create_access_token,
                                 get_jwt_identity, 
                                 get_raw_jwt)
 from pop_fibras.models import User, RevokedTokenModel
+
+registration_parser = reqparse.RequestParser()
+registration_parser.add_argument('username', help = 'This field cannot be blank', required = True)
+registration_parser.add_argument('password', help = 'This field cannot be blank', required = True)
+registration_parser.add_argument('admin', help = 'This field cannot be blank', required = True)
+
 parser = reqparse.RequestParser()
 parser.add_argument('username', help = 'This field cannot be blank', required = True)
 parser.add_argument('password', help = 'This field cannot be blank', required = True)
 
 class UserRegistration(Resource):
     def post(self):
-        data = parser.parse_args()
+        data = registration_parser.parse_args()
         
-        if UserModel.find_by_username(data['username']):
+        if User.find_by_username(data['username']):
             return {'message': 'User {} already exists'.format(data['username'])}
         
-        new_user = UserModel(
+        new_user = User(
             username = data['username'],
-            password = UserModel.generate_hash(data['password'])
+            password = boldata['password'],
+            admin = data['admin'] == 'true'
         )
         
         try:
-            new_user.save_to_db()
+            new_user.save()
             access_token = create_access_token(identity = data['username'])
             refresh_token = create_refresh_token(identity = data['username'])
             return {
@@ -32,7 +38,7 @@ class UserRegistration(Resource):
                 'access_token': access_token,
                 'refresh_token': refresh_token
                 }
-        except:
+        except e:
             return {'message': 'Something went wrong'}, 500
 
 
@@ -86,16 +92,3 @@ class TokenRefresh(Resource):
         current_user = get_jwt_identity()
         access_token = create_access_token(identity = current_user)
         return {'access_token': access_token}
-      
-      
-class AllUsers(Resource):
-    @jwt_required
-    def get(self):
-        return User.return_all()
-      
-class SecretResource(Resource):
-    @jwt_required
-    def get(self):
-        return {
-            'answer': 42
-}

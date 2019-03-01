@@ -1,3 +1,8 @@
 {
-    "python.linting.pylintArgs": ["--load-plugins", "pylint_flask"]
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_flask"
+    ],
+    "python.pythonPath": "/home/matheus/anaconda3/envs/flaskenv/bin/python",
+    "python.linting.enabled": false
 }
