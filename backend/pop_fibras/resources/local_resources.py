@@ -13,7 +13,7 @@ local_update_parser = local_post_parser.copy()
 local_update_parser.add_argument('id', help = 'This field cannot be blank', required=True, type=int)
 
 local_delete_parser = local_get_parser.copy()
-local_delete_parser.add_argument('password,', help = 'This field cannot be blank', required=True)
+local_delete_parser.add_argument('password', help = 'This field cannot be blank', required=True)
 class LocaisResource(Resource):
     @jwt_required
     def get(self):
@@ -30,7 +30,7 @@ class LocalResource(Resource):
                 local_json.update(local.dios_to_json())
                 return local_json
             return {'message': 'Invalid Local ID'}
-        except e:
+        except:
             return {'message': 'Something went wrong'}, 500
 
 
@@ -45,36 +45,37 @@ class LocalResource(Resource):
             return {
                 'message': 'Local {} was created'.format(data['nome']),
                 }
-        except e:
+        except:
             return {'message': 'Something went wrong'}, 500
     
     @jwt_required
-    def update(self):
+    def patch(self):
         data = local_update_parser.parse_args()
         try:
             local = Local.query.filter_by(id=data['id']).first() 
             if local:
                 local.nome = data['nome']
                 local.observacao = data['observacao']
-                local.save_to_db()
+                local.save()
                 return {
                     'message': 'Local {} was updated'.format(data['id']),
                 }
             return {'message':'Invalid Local ID'}
-        except e:
+        except:
             return {'message': 'Something went wrong'}, 500
     
     @jwt_required
     def delete(self):
-        data = local_get_parser.parse_args()
+        data = local_delete_parser.parse_args()
         try:
             user = User.query.filter_by(username=get_jwt_identity()).first()
             if user.check_password(data['password']):
-                local = Local.query.filter_by(id=int(data['id'])).first()
+                local = Local.query.filter_by(id=data['id']).first()
                 if local:
                     local.delete()
                     return {'message': 'Local {} was deleted'.format(data['id'])}
                 return {'message':'Invalid Local ID'}
             return {'message':'Invalid password for current User.'}, 403
-        except e:
+        except:
+            raise
             return {'message': 'Something went wrong'}, 500

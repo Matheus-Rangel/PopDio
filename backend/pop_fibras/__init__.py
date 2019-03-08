@@ -25,15 +25,32 @@ def check_if_token_in_blacklist(decrypted_token):
     return models.RevokedTokenModel.is_jti_blacklisted(jti)
 
 #API
-from pop_fibras.api import user_resources
+from pop_fibras.resources import (user_resources, cabo_fibra_resources,
+                                    estado_link_resources, dio_resources,
+                                    porta_dio_resources, local_resources)
 api = Api(app)
+#USER RESOURCES
 api.add_resource(user_resources.UserRegistration, '/registration')
 api.add_resource(user_resources.UserLogin, '/login')
 api.add_resource(user_resources.UserLogoutAccess, '/logout/access')
 api.add_resource(user_resources.UserLogoutRefresh, '/logout/refresh')
 api.add_resource(user_resources.TokenRefresh, '/token/refresh')
-api.add_resource(user_resources.AllUsers, '/users')
-api.add_resource(user_resources.SecretResource, '/secret')
+#CABO_FIBRA RESOURCES
+api.add_resource(cabo_fibra_resources.CabosResource, '/cabos')
+api.add_resource(cabo_fibra_resources.CaboResource, '/cabo')
+#ESTADO_LINK RESOURCES
+api.add_resource(estado_link_resources.EstadosResource,'/estados-link')
+api.add_resource(estado_link_resources.EstadoResource,'/estado-link')
+#DIO RESOURCES
+api.add_resource(dio_resources.DiosResource, '/dios')
+api.add_resource(dio_resources.DioResource, '/dio')
+#PORTA_DIO RESOURCES
+api.add_resource(porta_dio_resources.PortaResource, '/porta-dio')
+#LOCAL RESOURCES
+api.add_resource(local_resources.LocaisResource, '/locais')
+api.add_resource(local_resources.LocalResource, '/local')
+
+
 
 # Login
 login_manager = LoginManager()

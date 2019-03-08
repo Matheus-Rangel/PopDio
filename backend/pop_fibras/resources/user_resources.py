@@ -60,8 +60,7 @@ class UserLogin(Resource):
                 }
         else:
             return {'message': 'Wrong credentials'}
-      
-      
+
 class UserLogoutAccess(Resource):
     @jwt_required
     def post(self):
@@ -73,7 +72,6 @@ class UserLogoutAccess(Resource):
         except:
             return {'message': 'Something went wrong'}, 500
 
-
 class UserLogoutRefresh(Resource):
     @jwt_refresh_token_required
     def post(self):
@@ -84,8 +82,7 @@ class UserLogoutRefresh(Resource):
             return {'message': 'Refresh token has been revoked'}
         except:
             return {'message': 'Something went wrong'}, 500
-      
-      
+
 class TokenRefresh(Resource):
     @jwt_refresh_token_required
     def post(self):
