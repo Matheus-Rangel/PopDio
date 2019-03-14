@@ -25,7 +25,7 @@ class UserRegistration(Resource):
         
         new_user = User(
             username = data['username'],
-            password = boldata['password'],
+            password = data['password'],
             admin = data['admin'] == 'true'
         )
         

@@ -1,5 +1,0 @@
-docker run -it\
-  -v ${PWD}:/react \
-  -v /react/node_modules \
-  -p 3000:3000 \
-  pop-fibras-react:0.0.1

@@ -11,6 +11,7 @@ app.config.from_object('pop_fibras.config.DevelopmentConfig')
 
 # Database
 db = SQLAlchemy(app)
+db.metadata.schema = 'dev'
 from . import models
 migrate = Migrate(app, db)
 

@@ -4,5 +4,17 @@
         "pylint_flask"
     ],
     "python.pythonPath": "/home/matheus/anaconda3/envs/flaskenv/bin/python",
-    "python.linting.enabled": false
+    "python.linting.enabled": false,
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact",
+        "vue-html": "html"
+    },
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "frontend/node_modules/*/**": true
+    },
+    "[javascript]": {
+        "editor.tabSize": 2
+    }
 }

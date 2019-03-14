@@ -1,15 +1,17 @@
+import os
+
 POSTGRES = {
-    'user': 'postgres',
-    'pw': '123456',
-    'db': 'pop-fibras-dev',
-    'host': 'localhost',
-    'port': '5432',
+    'user': os.environ.get('POSTGRES_USER'),
+    'pw': os.environ.get('POSTGRES_PASSWORD'),
+    'db': os.environ.get('POSTGRES_DB'),
+    'host': os.environ.get('POSTGRES_HOST'),
+    'port': os.environ.get('POSTGRES_PORT'),
 }
 class Config():
     DEBUG = False
     TESTING = False
     SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
-    SECRET_KEY = b'_5#y2L"F4Q8z\n\xec]/'
+    SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class ProductionConfig(Config):
