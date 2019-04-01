@@ -48,7 +48,7 @@ class UserLogin(Resource):
         print(data)
         current_user = User.find_by_username(data['username'])
         if not current_user:
-            return {'message': 'User {} doesn\'t exist'.format(data['username'])}
+            return {'message': 'Wrong credentials'}, 401
         
         if current_user.check_password(data['password']):
             access_token = create_access_token(identity = data['username'])

@@ -1,0 +1,1121 @@
+{
+	"info": {
+		"_postman_id": "c5f0c6e7-a39a-4f12-b71d-b3ff5eca15d6",
+		"name": "PopFibras",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "UserRegistration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "matheus",
+									"type": "text"
+								},
+								{
+									"key": "login",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "admin",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/registration",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserLogin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/login?username=matheus&password=123456",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "matheus"
+								},
+								{
+									"key": "password",
+									"value": "123456"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RefreshToken",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTM1MzE1MTEsIm5iZiI6MTU1MzUzMTUxMSwianRpIjoiN2Y2OTBlNmQtMGEwNi00NGY5LTkxMTctZDgwMTRmYTk1NTU1IiwiZXhwIjoxNTU2MTIzNTExLCJpZGVudGl0eSI6Im1hdGhldXMiLCJ0eXBlIjoicmVmcmVzaCJ9.prqdZicufT-A6HWrG3RG98lLnnl2HyNP45bc5XFKpjY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/token/refresh",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"token",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cabo",
+			"item": [
+				{
+					"name": "Cabos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTIzMjgzNTAsIm5iZiI6MTU1MjMyODM1MCwianRpIjoiMDAxOTQ4ZTQtZTc3OC00MGQ3LWFlNTYtM2E4NWRmNzdjODM5IiwiZXhwIjoxNTUyMzI5MjUwLCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.NkeSdwWWGnKOXMVkFhgPREoJNVLOC8YcjG6FfUNcvkA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/cabos",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"cabos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cabo-Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTIzMjgzNTAsIm5iZiI6MTU1MjMyODM1MCwianRpIjoiMDAxOTQ4ZTQtZTc3OC00MGQ3LWFlNTYtM2E4NWRmNzdjODM5IiwiZXhwIjoxNTUyMzI5MjUwLCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.NkeSdwWWGnKOXMVkFhgPREoJNVLOC8YcjG6FfUNcvkA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nome",
+									"value": "FC36 AS80",
+									"type": "text"
+								},
+								{
+									"key": "quantidade_fibras",
+									"value": "36",
+									"type": "text"
+								},
+								{
+									"key": "observacao",
+									"value": "Cabo Utilizado na rede giga-natal",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/cabo",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"cabo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cabo-Get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTE5ODc3NDgsIm5iZiI6MTU1MTk4Nzc0OCwianRpIjoiMGZhYmU3YjEtZTJkNC00NDNkLWIyYWUtYWFmZDc1ZWI4MTcwIiwiZXhwIjoxNTUxOTg4NjQ4LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.Y_4afIuKu9XbxJYpxoCmb3wmFMOlo9cC5DYq16h66EE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/cabo?id=1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"cabo"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cabo-Patch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTE5ODc3NDgsIm5iZiI6MTU1MTk4Nzc0OCwianRpIjoiMGZhYmU3YjEtZTJkNC00NDNkLWIyYWUtYWFmZDc1ZWI4MTcwIiwiZXhwIjoxNTUxOTg4NjQ4LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.Y_4afIuKu9XbxJYpxoCmb3wmFMOlo9cC5DYq16h66EE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "observacao",
+									"value": "Cabo Utilizado na rede giga natal e giga metropole",
+									"type": "text"
+								},
+								{
+									"key": "nome",
+									"value": "FC36 AS120",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/cabo",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"cabo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cabo-Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTE5ODc3NDgsIm5iZiI6MTU1MTk4Nzc0OCwianRpIjoiMGZhYmU3YjEtZTJkNC00NDNkLWIyYWUtYWFmZDc1ZWI4MTcwIiwiZXhwIjoxNTUxOTg4NjQ4LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.Y_4afIuKu9XbxJYpxoCmb3wmFMOlo9cC5DYq16h66EE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/cabo",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"cabo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Estado",
+			"item": [
+				{
+					"name": "Estado-Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTE5ODc3NDgsIm5iZiI6MTU1MTk4Nzc0OCwianRpIjoiMGZhYmU3YjEtZTJkNC00NDNkLWIyYWUtYWFmZDc1ZWI4MTcwIiwiZXhwIjoxNTUxOTg4NjQ4LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.Y_4afIuKu9XbxJYpxoCmb3wmFMOlo9cC5DYq16h66EE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nome",
+									"value": "Organico",
+									"type": "text"
+								},
+								{
+									"key": "cor",
+									"value": "#112344",
+									"type": "text"
+								},
+								{
+									"key": "observacao",
+									"value": "None",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/estado-link",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"estado-link"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Estados-Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTIzMjgzNTAsIm5iZiI6MTU1MjMyODM1MCwianRpIjoiMDAxOTQ4ZTQtZTc3OC00MGQ3LWFlNTYtM2E4NWRmNzdjODM5IiwiZXhwIjoxNTUyMzI5MjUwLCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.NkeSdwWWGnKOXMVkFhgPREoJNVLOC8YcjG6FfUNcvkA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/estados-link",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"estados-link"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Estado-Get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTE5ODc3NDgsIm5iZiI6MTU1MTk4Nzc0OCwianRpIjoiMGZhYmU3YjEtZTJkNC00NDNkLWIyYWUtYWFmZDc1ZWI4MTcwIiwiZXhwIjoxNTUxOTg4NjQ4LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.Y_4afIuKu9XbxJYpxoCmb3wmFMOlo9cC5DYq16h66EE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/estado-link?id=1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"estado-link"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Estado-Patch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTE5ODc3NDgsIm5iZiI6MTU1MTk4Nzc0OCwianRpIjoiMGZhYmU3YjEtZTJkNC00NDNkLWIyYWUtYWFmZDc1ZWI4MTcwIiwiZXhwIjoxNTUxOTg4NjQ4LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.Y_4afIuKu9XbxJYpxoCmb3wmFMOlo9cC5DYq16h66EE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "nome",
+									"value": "ativo",
+									"type": "text"
+								},
+								{
+									"key": "cor",
+									"value": "#111111",
+									"type": "text"
+								},
+								{
+									"key": "observacao",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/estado-link",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"estado-link"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DIO",
+			"item": [
+				{
+					"name": "DIO-Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTIwNzI4OTksIm5iZiI6MTU1MjA3Mjg5OSwianRpIjoiZmE1MTBjMDMtM2VhYS00Nzk1LTkxYTMtN2FjZjcxNjYyZjVmIiwiZXhwIjoxNTUyMDczNzk5LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.vGcCq1-WUakaYSchPxLgWZ6i-znBGS1QeJbGkfQiQcE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nome",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "local_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "observacao",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/dio",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"dio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DIO-Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTIwNzUxNTYsIm5iZiI6MTU1MjA3NTE1NiwianRpIjoiODE3MmY4OWQtMTU1OS00ZTc5LTgyYTYtYjg2ZGJhYTEzMjc5IiwiZXhwIjoxNTUyMDc2MDU2LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.SoDjpRQNECD0N2bJinDTNcCedcqPxUc0aSoh5p1pnRw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/dio?id=4",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"dio"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DIO-Patch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTE5OTE2ODEsIm5iZiI6MTU1MTk5MTY4MSwianRpIjoiOWI3ZDBkYmUtM2U5NS00ZGVkLTliODktNmY2NWVkZjUxMmQ3IiwiZXhwIjoxNTUxOTkyNTgxLCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.by7Nb-Vl4a6nOHaQfQvCwqEC9KNLMQX9SMqet_xr1eg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "nome",
+									"value": "DIO 1",
+									"type": "text"
+								},
+								{
+									"key": "observacao",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/dio",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"dio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DIO-Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTIwNzEzODgsIm5iZiI6MTU1MjA3MTM4OCwianRpIjoiNzA3YmI0MzAtOWU4OS00YmMyLWI4YzQtMDNiOTdjYzhlNDM5IiwiZXhwIjoxNTUyMDcyMjg4LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.PGPKuBZBkuhsLc8mYOvcrlXsV9LvBg2p4dlUXMNsB9A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/dio",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"dio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DIOS-Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTIwNzUxNTYsIm5iZiI6MTU1MjA3NTE1NiwianRpIjoiODE3MmY4OWQtMTU1OS00ZTc5LTgyYTYtYjg2ZGJhYTEzMjc5IiwiZXhwIjoxNTUyMDc2MDU2LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.SoDjpRQNECD0N2bJinDTNcCedcqPxUc0aSoh5p1pnRw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/dios",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"dios"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Porta-DIO",
+			"item": [
+				{
+					"name": "Porta-DIO-Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTIwNzUxNTYsIm5iZiI6MTU1MjA3NTE1NiwianRpIjoiODE3MmY4OWQtMTU1OS00ZTc5LTgyYTYtYjg2ZGJhYTEzMjc5IiwiZXhwIjoxNTUyMDc2MDU2LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.SoDjpRQNECD0N2bJinDTNcCedcqPxUc0aSoh5p1pnRw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/porta-dio?id=22",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"porta-dio"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "22"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Porta-DIO-Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTIwNzM5NTksIm5iZiI6MTU1MjA3Mzk1OSwianRpIjoiZWZkYjc1MDAtYTMzYy00YzNlLThmODgtZGE0YjdmNmI3YjkwIiwiZXhwIjoxNTUyMDc0ODU5LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.gJLhlekVpRKG2mHxOXoY-DvC1eF8HmMYkL27xOxp5zg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "dio_id",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "numero_porta",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "estado_link_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "fibra_numero",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "switch_porta",
+									"value": "SW01G001",
+									"type": "text"
+								},
+								{
+									"key": "fibra_cabo_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/porta-dio",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"porta-dio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Porta-DIO-Patch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTIwNzUxNTYsIm5iZiI6MTU1MjA3NTE1NiwianRpIjoiODE3MmY4OWQtMTU1OS00ZTc5LTgyYTYtYjg2ZGJhYTEzMjc5IiwiZXhwIjoxNTUyMDc2MDU2LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.SoDjpRQNECD0N2bJinDTNcCedcqPxUc0aSoh5p1pnRw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "estado_link_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "fibra_cabo_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "fibra_numero",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "numero_porta",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "switch_porta",
+									"value": "SW01G002",
+									"type": "text"
+								},
+								{
+									"key": "observacao",
+									"value": "teste",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "18",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/porta-dio",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"porta-dio"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Local",
+			"item": [
+				{
+					"name": "Local-Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTIwNzI4OTksIm5iZiI6MTU1MjA3Mjg5OSwianRpIjoiZmE1MTBjMDMtM2VhYS00Nzk1LTkxYTMtN2FjZjcxNjYyZjVmIiwiZXhwIjoxNTUyMDczNzk5LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.vGcCq1-WUakaYSchPxLgWZ6i-znBGS1QeJbGkfQiQcE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nome",
+									"value": "Pop-r",
+									"type": "text"
+								},
+								{
+									"key": "observacao",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/local",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"local"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Local-Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTIwNzI4OTksIm5iZiI6MTU1MjA3Mjg5OSwianRpIjoiZmE1MTBjMDMtM2VhYS00Nzk1LTkxYTMtN2FjZjcxNjYyZjVmIiwiZXhwIjoxNTUyMDczNzk5LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.vGcCq1-WUakaYSchPxLgWZ6i-znBGS1QeJbGkfQiQcE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/local?id=5",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"local"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Locais-Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTIwNzI4OTksIm5iZiI6MTU1MjA3Mjg5OSwianRpIjoiZmE1MTBjMDMtM2VhYS00Nzk1LTkxYTMtN2FjZjcxNjYyZjVmIiwiZXhwIjoxNTUyMDczNzk5LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.vGcCq1-WUakaYSchPxLgWZ6i-znBGS1QeJbGkfQiQcE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/locais",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"locais"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Local-Patch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTE5ODkwODMsIm5iZiI6MTU1MTk4OTA4MywianRpIjoiYzRiZWIzOGMtYmZlMy00YmVjLTllYzktZjcwNjQwZGNiYWE0IiwiZXhwIjoxNTUxOTg5OTgzLCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.eWk51cgSPslG9aHVE5JnDRqxVIj1a94Fbn3BVGw_EL8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nome",
+									"value": "POP-RN",
+									"type": "text"
+								},
+								{
+									"key": "observacao",
+									"value": "Localizado no centro de convivencias da UFRN",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/local?id=1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"local"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Local-Remove",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTIwNzI4OTksIm5iZiI6MTU1MjA3Mjg5OSwianRpIjoiZmE1MTBjMDMtM2VhYS00Nzk1LTkxYTMtN2FjZjcxNjYyZjVmIiwiZXhwIjoxNTUyMDczNzk5LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.vGcCq1-WUakaYSchPxLgWZ6i-znBGS1QeJbGkfQiQcE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/local?id=4",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"local"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
