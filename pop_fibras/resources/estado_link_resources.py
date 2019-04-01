@@ -17,7 +17,7 @@ estado_update_parser.add_argument('id', help = 'This field cannot be blank', req
 estado_delete_parser = estado_get_parser.copy()
 
 def is_hex_color(str):
-    return re.search(r'(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)', str)
+    return re.search(r'(^#[0-9a-f]{6}$)|(^#[0-9a-f]{3}$)', str)
     
 class EstadosResource(Resource):
     @jwt_required
@@ -58,6 +58,8 @@ class EstadoResource(Resource):
     def patch(self):
         data = estado_update_parser.parse_args()
         try:
+            if not is_hex_color(data['cor']):
+                return {'message': '{} is not a valid hex color code.'.format(data['cor'])}
             estado = EstadoLink.query.filter_by(id=data['id']).first() 
             if estado:
                 estado.nome = data['nome']
