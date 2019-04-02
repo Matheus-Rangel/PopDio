@@ -8,8 +8,8 @@ dio_get_parser.add_argument('id', help = 'This field cannot be blank', required=
 dio_post_parser = reqparse.RequestParser()
 dio_post_parser.add_argument('nome', help = 'This field cannot be blank', required=True)
 dio_post_parser.add_argument('local_id', help = 'This field cannot be blank and must be int', required=True, type=int)
-dio_post_parser.add_argument('observacao', help = 'This field cannot be blank', required=False)
-dio_post_parser.add_argument('quantidade_portas', help)
+dio_post_parser.add_argument('observacao', required=False)
+dio_post_parser.add_argument('quantidade_portas', help = 'This field cannot be blank', required=True, type=int)
 
 dio_update_parser = dio_post_parser.copy()
 dio_update_parser.add_argument('id', help = 'This field cannot be blank', required=True, type=int)
@@ -49,7 +49,7 @@ class DioResource(Resource):
             dio.save()
         except:
             return {'message': 'Something went wrong'}, 500
-        for i in range(data[quantidade_portas]):
+        for i in range(data['quantidade_portas']):
             porta = DioPorta(dio=dio, numero_porta=i+1)
             try:
                 porta.save()
