@@ -105,7 +105,7 @@ class Dio(db.Model):
         return {
             'id':self.id,
             'local':self.local.to_json(), 
-            'numero_portas': len(self.portas),
+            'quantidade_portas': len(self.portas),
             'nome':self.nome,
             'observacao':self.observacao,
         }
