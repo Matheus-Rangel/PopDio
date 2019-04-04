@@ -112,7 +112,7 @@ class Dio(db.Model):
 
     def portas_to_json(self):
         return {
-            'portas': [porta.to_json() for porta in self.portas]
+            'portas': [porta.to_json(dio=False) for porta in self.portas]
         }
 
     def save(self):
@@ -246,7 +246,7 @@ class DioPorta(db.Model):
                 'numero_porta': self.porta_bypass.numero_porta,
             }
 
-    def to_json(self):
+    def to_json(self, dio=True):
         if self.estado_link:
             estado_link = self.estado_link.to_json()
         else:
@@ -254,11 +254,10 @@ class DioPorta(db.Model):
         if self.fibra_cabo:
             fibra_cabo = self.fibra_cabo.to_json()
         else:
-            estado_link = None
-        return {
+            fibra_cabo = None
+        json = {
             'id': self.id,
             'observacao':self.observacao,
-            'dio': self.dio.to_json(),
             'numero_porta': self.numero_porta,
             'switch_porta': self.switch_porta,
             'fibra_cabo': fibra_cabo,
@@ -267,3 +266,6 @@ class DioPorta(db.Model):
             'porta_bypass': self.__porta_bypass_json(),
             'estado_link': estado_link,
         }
+        if dio:
+            json['dio'] = self.dio.to_json()
+        return json

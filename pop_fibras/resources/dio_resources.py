@@ -1,6 +1,8 @@
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from pop_fibras.models import Dio, User, Local
+from pop_fibras.models import Dio, User, Local, DioPorta
+from sqlalchemy.exc import IntegrityError
+import traceback
 
 dio_get_parser = reqparse.RequestParser()
 dio_get_parser.add_argument('id', help = 'This field cannot be blank', required=True, type=int)
@@ -33,8 +35,8 @@ class DioResource(Resource):
                 dio_json.update(dio.portas_to_json())
                 return dio_json
             return {'message': 'Invalid Dio ID'}
-        except:
-            return {'message': 'Something went wrong'}, 500
+        except Exception as e:
+            return {'message': 'Something went wrong {}'.format(traceback.format_tb(e.__traceback__))}, 500
 
     @jwt_required
     def post(self):
@@ -50,14 +52,12 @@ class DioResource(Resource):
         except:
             return {'message': 'Something went wrong'}, 500
         for i in range(data['quantidade_portas']):
-            porta = DioPorta(dio=dio, numero_porta=i+1)
             try:
+                porta = DioPorta(dio_id=dio.id, numero_porta=i+1)
                 porta.save()
             except IntegrityError as e:
+                print('vata')
                 return {'message': '{}'.format(e.orig)}, 500
-            except:
-                raise
-                return {'message': 'Something went wrong'}, 500
         return {'message': 'Dio {} was created'.format(data['nome'])}
 
     @jwt_required
