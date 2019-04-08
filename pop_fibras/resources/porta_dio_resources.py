@@ -61,6 +61,14 @@ class PortaResource(Resource):
         try:
             porta = DioPorta.query.filter_by(id=data['id']).first() 
             if porta:
+                if data['porta_destino_id'] != porta.porta_destino_id:
+                    porta2 = DioPorta.query.filter_by(id=data['porta_destino_id'])
+                    porta2.porta_destino_id = porta.id
+                    porta2.save()
+                if data['porta_bypass_id'] != porta.porta_bypass_id:
+                    porta2 = DioPorta.query.filter_by(id=data['porta_bypass_id'])
+                    porta2.porta_bypass_id = porta.id
+                    porta2.save()
                 porta.porta_destino_id = data['porta_destino_id']
                 porta.estado_link_id = data['estado_link_id']
                 porta.fibra_cabo_id = data['fibra_cabo_id']
