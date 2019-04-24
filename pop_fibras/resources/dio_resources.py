@@ -4,6 +4,10 @@ from pop_fibras.models import Dio, User, Local, DioPorta
 from sqlalchemy.exc import IntegrityError
 import traceback
 
+dios_get_parser = reqparse.RequestParser()
+dios_get_parser.add_argument('local_id', help = 'This field cannot be blank', type=int)
+dios_get_parser.add_argument('id_nome', help = 'If setted will only return the id and name of the DIOs')
+
 dio_get_parser = reqparse.RequestParser()
 dio_get_parser.add_argument('id', help = 'This field cannot be blank', required=True, type=int)
 
@@ -22,7 +26,10 @@ dio_delete_parser.add_argument('password', help = 'This field cannot be blank', 
 class DiosResource(Resource):
     @jwt_required
     def get(self):
-        return Dio.all_to_json()
+        data = dios_get_parser.parse_args()
+        if (data['local_id']):
+            return Dio.query_to_json(Dio.query.filter_by(local_id=data['local_id']), data['id_nome'])
+        return Dio.all_to_json(data['id_nome'])
 
 class DioResource(Resource):
     @jwt_required

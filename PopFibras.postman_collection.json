@@ -528,7 +528,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTIwNzI4OTksIm5iZiI6MTU1MjA3Mjg5OSwianRpIjoiZmE1MTBjMDMtM2VhYS00Nzk1LTkxYTMtN2FjZjcxNjYyZjVmIiwiZXhwIjoxNTUyMDczNzk5LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.vGcCq1-WUakaYSchPxLgWZ6i-znBGS1QeJbGkfQiQcE",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTQ0MDI4MzgsIm5iZiI6MTU1NDQwMjgzOCwianRpIjoiM2U0ZTlmYzEtNmI1Yy00OGVmLWJkYWUtNmU5NTk3NTQ5YzAyIiwiZXhwIjoxNTU0NDAzNzM4LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.OlFeWDmM3x-WlmFmSUI6h_YCp1EA6m0vAtBq5Mdp8eY",
 									"type": "string"
 								}
 							]
@@ -540,17 +540,22 @@
 							"formdata": [
 								{
 									"key": "nome",
-									"value": "1",
+									"value": "34",
 									"type": "text"
 								},
 								{
 									"key": "local_id",
-									"value": "5",
+									"value": "7",
 									"type": "text"
 								},
 								{
 									"key": "observacao",
 									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "quantidade_portas",
+									"value": "2",
 									"type": "text"
 								}
 							]
@@ -903,6 +908,34 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Portas-DIO-Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/portas-dio?dio_id=22",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"portas-dio"
+							],
+							"query": [
+								{
+									"key": "dio_id",
+									"value": "22"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -998,7 +1031,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTIwNzI4OTksIm5iZiI6MTU1MjA3Mjg5OSwianRpIjoiZmE1MTBjMDMtM2VhYS00Nzk1LTkxYTMtN2FjZjcxNjYyZjVmIiwiZXhwIjoxNTUyMDczNzk5LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.vGcCq1-WUakaYSchPxLgWZ6i-znBGS1QeJbGkfQiQcE",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTQ0MDI4MzgsIm5iZiI6MTU1NDQwMjgzOCwianRpIjoiM2U0ZTlmYzEtNmI1Yy00OGVmLWJkYWUtNmU5NTk3NTQ5YzAyIiwiZXhwIjoxNTU0NDAzNzM4LCJpZGVudGl0eSI6Im1hdGhldXMiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.OlFeWDmM3x-WlmFmSUI6h_YCp1EA6m0vAtBq5Mdp8eY",
 									"type": "string"
 								}
 							]

@@ -80,9 +80,6 @@ class Local(db.Model):
             'observacao':self.observacao
         }
 
-    def dios_to_json(self):
-        return {'dios': [dio.to_json() for dio in self.dios]}
-
     @classmethod
     def all_to_json(cls):
         return {'locais': [local.to_json() for local in cls.query.all()]}
@@ -101,7 +98,12 @@ class Dio(db.Model):
         self.nome = nome
         self.observacao = observacao
     
-    def to_json(self):
+    def to_json(self, id_nome=False):
+        if id_nome:
+            return {
+                'id': self.id,
+                'nome': self.nome
+            }
         return {
             'id':self.id,
             'local':self.local.to_json(), 
@@ -122,10 +124,14 @@ class Dio(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-
+    
     @classmethod
-    def all_to_json(cls):
-        return {'dios': [dio.to_json() for dio in cls.query.all()]}
+    def query_to_json(cls, query, id_nome):
+        return {'dios': [dio.to_json(id_nome) for dio in query]}
+    
+    @classmethod
+    def all_to_json(cls, id_nome):
+        return {'dios': [dio.to_json(id_nome) for dio in cls.query.all()]}
 
 class CaboFibra(db.Model):
     __tablename__ = 'cabo_fibra'
@@ -246,7 +252,16 @@ class DioPorta(db.Model):
                 'numero_porta': self.porta_bypass.numero_porta,
             }
 
-    def to_json(self, dio=True):
+    @classmethod
+    def query_to_json(cls, query, id_numero, dio=True):
+        return {'portas': [porta.to_json(id_numero=id_numero, dio=dio) for porta in query]}
+
+    def to_json(self, id_numero=False, dio=True):
+        if id_numero:
+            return {
+                'id': self.id,
+                'numero_porta': self.numero_porta,
+            }
         if self.estado_link:
             estado_link = self.estado_link.to_json()
         else:

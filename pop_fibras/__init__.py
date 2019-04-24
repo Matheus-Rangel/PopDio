@@ -47,6 +47,7 @@ api.add_resource(dio_resources.DiosResource, '/dios')
 api.add_resource(dio_resources.DioResource, '/dio')
 #PORTA_DIO RESOURCES
 api.add_resource(porta_dio_resources.PortaResource, '/porta-dio')
+api.add_resource(porta_dio_resources.PortasResource, '/portas-dio')
 #LOCAL RESOURCES
 api.add_resource(local_resources.LocaisResource, '/locais')
 api.add_resource(local_resources.LocalResource, '/local')
