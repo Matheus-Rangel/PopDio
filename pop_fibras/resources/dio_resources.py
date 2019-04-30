@@ -49,13 +49,12 @@ class DioResource(Resource):
     def post(self):
         data = dio_post_parser.parse_args()
         if Dio.query.filter_by(nome=data['nome'], local_id=data['local_id']).first():
-            return {'message': 'Dio {} already exists in this local.'.format(data['nome'])}
-        local = Local.query.filter_by(id=data['local_id']).first()
-        if not local:
-            return {'message': 'Invalid Local Id'}
-        dio = Dio(nome=data['nome'], observacao=data['observacao'], local=local)
+            return {'message': 'Dio {} already exists in this local.'.format(data['nome'])}, 400
+        dio = Dio(nome=data['nome'], observacao=data['observacao'], local_id=data['local_id'])
         try:
             dio.save()
+        except IntegrityError as e:
+                return {'message': '{}'.format(e.orig)}, 500
         except:
             return {'message': 'Something went wrong'}, 500
         for i in range(data['quantidade_portas']):
@@ -63,7 +62,6 @@ class DioResource(Resource):
                 porta = DioPorta(dio_id=dio.id, numero_porta=i+1)
                 porta.save()
             except IntegrityError as e:
-                print('vata')
                 return {'message': '{}'.format(e.orig)}, 500
         return {'message': 'Dio {} was created'.format(data['nome'])}
 
@@ -74,7 +72,7 @@ class DioResource(Resource):
         if not dio:
             return {'message': 'Invalid Dio Id'}
         if Dio.query.filter_by(nome=data['nome'], local_id=dio.local_id).first():
-            return {'message': 'Dio {} already exists in this local.'.format(data['nome'])}
+            return {'message': 'Dio {} already exists in this local.'.format(data['nome'])}, 400
         dio.nome = data['nome']
         dio.observacao = data['observacao']
         try:
