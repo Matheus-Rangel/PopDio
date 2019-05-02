@@ -28,7 +28,7 @@ class CaboResource(Resource):
             cabo = CaboFibra.query.filter_by(id=data['id']).first()
             if cabo:
                 return cabo.to_json()
-            return {'message': 'Invalid Cabo ID'}
+            return {'message': 'Invalid Cabo ID'}, 400
         except:
             return {'message': 'Something went wrong'}, 500
 
@@ -41,9 +41,7 @@ class CaboResource(Resource):
         cabo = CaboFibra(nome=data['nome'], quantidade_fibras=data['quantidade_fibras'], observacao=data['observacao'])
         try:
             cabo.save()
-            return {
-                'message': 'Cabo {} was created'.format(data['nome']),
-                }
+            return cabo.to_json()
         except:
             return {'message': 'Something went wrong'}, 500
     
@@ -56,10 +54,8 @@ class CaboResource(Resource):
                 cabo.nome = data['nome']
                 cabo.observacao = data['observacao']
                 cabo.save()
-                return {
-                    'message': 'Cabo {} was updated'.format(data['id']),
-                }
-            return {'message':'Invalid Cabo ID'}
+                return cabo.to_json()
+            return {'message':'Invalid Cabo ID'}, 400
         except:
             return {'message': 'Something went wrong'}, 500
     
@@ -71,6 +67,6 @@ class CaboResource(Resource):
             if cabo:
                 cabo.delete()
                 return {'message': 'Cabo {} was deleted'.format(data['id'])}
-            return {'message':'Invalid Cabo ID'}
+            return {'message':'Invalid Cabo ID'}, 400
         except:
             return {'message': 'Something went wrong'}, 500

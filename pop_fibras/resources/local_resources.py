@@ -29,7 +29,7 @@ class LocalResource(Resource):
                 local_json = local.to_json()
                 local_json.update(local.dios_to_json())
                 return local_json
-            return {'message': 'Invalid Local ID'}
+            return {'message': 'Invalid Local ID'}, 400
         except:
             return {'message': 'Something went wrong'}, 500
 
@@ -38,13 +38,11 @@ class LocalResource(Resource):
     def post(self):
         data = local_post_parser.parse_args()
         if Local.find_by_nome(data['nome']):
-            return {'message': 'Local {} already exists.'.format(data['nome'])}
+            return {'message': 'Local {} already exists.'.format(data['nome'])}, 400
         local = Local(nome=data['nome'], observacao=data['observacao'])
         try:
             local.save()
-            return {
-                'message': 'Local {} was created'.format(data['nome']),
-                }
+            return local.to_json()
         except:
             return {'message': 'Something went wrong'}, 500
     
@@ -57,10 +55,8 @@ class LocalResource(Resource):
                 local.nome = data['nome']
                 local.observacao = data['observacao']
                 local.save()
-                return {
-                    'message': 'Local {} was updated'.format(data['id']),
-                }
-            return {'message':'Invalid Local ID'}
+                return local.to_json()
+            return {'message':'Invalid Local ID'}, 400
         except:
             return {'message': 'Something went wrong'}, 500
     
@@ -75,7 +71,7 @@ class LocalResource(Resource):
                     local.delete()
                     return {'message': 'Local {} was deleted'.format(data['id'])}
                 return {'message':'Invalid Local ID'}
-            return {'message':'Invalid password for current User.'}, 403
+            return {'message':'Invalid password for current User.'}, 412
         except:
             raise
             return {'message': 'Something went wrong'}, 500

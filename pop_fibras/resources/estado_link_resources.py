@@ -17,7 +17,7 @@ estado_update_parser.add_argument('id', help = 'This field cannot be blank', req
 estado_delete_parser = estado_get_parser.copy()
 
 def is_hex_color(str):
-    return re.search(r'(^#[0-9a-f]{6}$)|(^#[0-9a-f]{3}$)', str)
+    return re.search(r'(^#[0-9a-fA-F]{6}$)|(^#[0-9a-fA-F]{3}$)', str)
     
 class EstadosResource(Resource):
     @jwt_required
@@ -41,16 +41,14 @@ class EstadoResource(Resource):
     def post(self):
         data = estado_post_parser.parse_args()
         if EstadoLink.find_by_nome(data['nome']):
-            return {'message': 'Estado {} already exists.'.format(data['nome'])}
+            return {'message': 'Estado {} already exists.'.format(data['nome'])}, 400
         if not is_hex_color(data['cor']):
-            return {'message': '{} is not a valid hex color code.'.format(data['cor'])}
+            return {'message': '{} is not a valid hex color code.'.format(data['cor'])}, 400
         
         estado = EstadoLink(nome=data['nome'], cor=data['cor'], observacao=data['observacao'])
         try:
             estado.save()
-            return {
-                'message': 'Estado {} was created'.format(data['nome']),
-                }
+            return estado.to_json()
         except:
             return {'message': 'Something went wrong'}, 500
     
@@ -59,17 +57,15 @@ class EstadoResource(Resource):
         data = estado_update_parser.parse_args()
         try:
             if not is_hex_color(data['cor']):
-                return {'message': '{} is not a valid hex color code.'.format(data['cor'])}
+                return {'message': '{} is not a valid hex color code.'.format(data['cor'])}, 400
             estado = EstadoLink.query.filter_by(id=data['id']).first() 
             if estado:
                 estado.nome = data['nome']
                 estado.cor = data['cor']
                 estado.observacao = data['observacao']
                 estado.save()
-                return {
-                    'message': 'Estado {} was updated'.format(data['id']),
-                }
-            return {'message':'Invalid Estado ID'}
+                return estado.to_json()
+            return {'message':'Invalid Estado ID'}, 400
         except:
             return {'message': 'Something went wrong'}, 500
     
@@ -81,6 +77,6 @@ class EstadoResource(Resource):
             if estado:
                 estado.delete()
                 return {'message': 'Estado {} was deleted'.format(data['id'])}
-            return {'message':'Invalid Estado ID'}
+            return {'message':'Invalid Estado ID'}, 400
         except:
             return {'message': 'Something went wrong'}, 500

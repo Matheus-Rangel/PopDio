@@ -77,7 +77,8 @@ class Local(db.Model):
         return {
             'id':self.id,
             'nome':self.nome, 
-            'observacao':self.observacao
+            'observacao':self.observacao,
+            'numeroDios': len(self.dios),
         }
     def dios_to_json(self):
         return {'dios': [dio.to_json() for dio in self.dios]}
@@ -122,12 +123,12 @@ class Dio(db.Model):
         db.session.commit()
     
     @classmethod
-    def query_to_json(cls, query, id_nome):
-        return {'dios': [dio.to_json(id_nome) for dio in query]}
+    def query_to_json(cls, query):
+        return {'dios': [dio.to_json() for dio in query]}
     
     @classmethod
-    def all_to_json(cls, id_nome):
-        return {'dios': [dio.to_json(id_nome) for dio in cls.query.all()]}
+    def all_to_json(cls):
+        return {'dios': [dio.to_json() for dio in cls.query.all()]}
 
 class CaboFibra(db.Model):
     __tablename__ = 'cabo_fibra'
@@ -233,19 +234,39 @@ class DioPorta(db.Model):
         db.session.commit()
 
     @classmethod
-    def query_to_json(cls, query, id_numero, dio=True):
-        return {'portas': [porta.to_json(id_numero=id_numero, dio=dio) for porta in query]}
+    def query_to_json(cls, query):
+        return {'portas': [porta.to_json() for porta in query]}
 
+    def porta_bypass_to_json(self):
+        if self.porta_bypass:
+            return {
+                'id': self.porta_bypass.id,
+                'numeroPorta': self.porta_bypass.numeroPorta,
+                'dioId': self.porta_bypass.dio.id,
+                'dioNome': self.porta_bypass.dio.nome,
+                'localId': self.porta_bypass.dio.local.id,
+                'localNome': self.porta_bypass.dio.local.nome,
+            }
+    def porta_destino_to_json(self):
+        if self.porta_destino:
+            return {
+                'id': self.porta_destino.id,
+                'numeroPorta': self.porta_destino.numeroPorta,
+                'dioId': self.porta_destino.dio.id,
+                'dioNome': self.porta_destino.dio.nome,
+                'localId': self.porta_destino.dio.local.id,
+                'localNome': self.porta_destino.dio.local.nome,
+            }
     def to_json(self):
-        json = {
+        return {
             'id': self.id,
             'observacao':self.observacao,
             'numeroPorta': self.numero_porta,
             'switchPorta': self.switch_porta,
             'fibraCabo': self.fibra_cabo_id,
             'fibraNumero': self.fibra_numero,
-            'portaDestino': self.porta_destino_id,
-            'portaBypass': self.porta_bypass_id,
+            'portaDestino': self.porta_destino_to_json(),
+            'portaBypass': self.porta_bypass_to_json(),
             'estadoLink': self.estado_link_id,
             'dioId': self.dio_id,
         }

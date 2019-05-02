@@ -2,7 +2,6 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import LoginManager
 from flask_jwt_extended import JWTManager
 from flask_restful import Api
 
@@ -40,21 +39,15 @@ api.add_resource(user_resources.TokenRefresh, '/token/refresh')
 api.add_resource(cabo_fibra_resources.CabosResource, '/cabos')
 api.add_resource(cabo_fibra_resources.CaboResource, '/cabo')
 #ESTADO_LINK RESOURCES
-api.add_resource(estado_link_resources.EstadosResource,'/estados-link')
-api.add_resource(estado_link_resources.EstadoResource,'/estado-link')
+api.add_resource(estado_link_resources.EstadosResource,'/estados')
+api.add_resource(estado_link_resources.EstadoResource,'/estado')
 #DIO RESOURCES
 api.add_resource(dio_resources.DiosResource, '/dios')
 api.add_resource(dio_resources.DioResource, '/dio')
 #PORTA_DIO RESOURCES
-api.add_resource(porta_dio_resources.PortaResource, '/porta-dio')
-api.add_resource(porta_dio_resources.PortasResource, '/portas-dio')
+api.add_resource(porta_dio_resources.PortaResource, '/porta')
+api.add_resource(porta_dio_resources.PortasResource, '/portas')
 #LOCAL RESOURCES
 api.add_resource(local_resources.LocaisResource, '/locais')
 api.add_resource(local_resources.LocalResource, '/local')
 
-
-
-# Login
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = "users.login"

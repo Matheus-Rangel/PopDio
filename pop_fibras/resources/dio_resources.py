@@ -6,7 +6,6 @@ import traceback
 
 dios_get_parser = reqparse.RequestParser()
 dios_get_parser.add_argument('local_id', help = 'This field cannot be blank', type=int)
-dios_get_parser.add_argument('id_nome', help = 'If setted will only return the id and name of the DIOs')
 
 dio_get_parser = reqparse.RequestParser()
 dio_get_parser.add_argument('id', help = 'This field cannot be blank', required=True, type=int)
@@ -28,8 +27,8 @@ class DiosResource(Resource):
     def get(self):
         data = dios_get_parser.parse_args()
         if (data['local_id']):
-            return Dio.query_to_json(Dio.query.filter_by(local_id=data['local_id']), data['id_nome'])
-        return Dio.all_to_json(data['id_nome'])
+            return Dio.query_to_json(Dio.query.filter_by(local_id=data['local_id']))
+        return Dio.all_to_json()
 
 class DioResource(Resource):
     @jwt_required
@@ -38,10 +37,8 @@ class DioResource(Resource):
         try:
             dio = Dio.query.filter_by(id=data['id']).first()
             if dio:
-                dio_json = dio.to_json()
-                dio_json.update(dio.portas_to_json())
-                return dio_json
-            return {'message': 'Invalid Dio ID'}
+                return dio.to_json()
+            return {'message': 'Invalid Dio ID'}, 404
         except Exception as e:
             return {'message': 'Something went wrong {}'.format(traceback.format_tb(e.__traceback__))}, 500
 
@@ -54,7 +51,7 @@ class DioResource(Resource):
         try:
             dio.save()
         except IntegrityError as e:
-                return {'message': '{}'.format(e.orig)}, 500
+            return {'message': 'Invalid local id'}, 400
         except:
             return {'message': 'Something went wrong'}, 500
         for i in range(data['quantidade_portas']):
@@ -63,7 +60,7 @@ class DioResource(Resource):
                 porta.save()
             except IntegrityError as e:
                 return {'message': '{}'.format(e.orig)}, 500
-        return {'message': 'Dio {} was created'.format(data['nome'])}
+        return dio.to_json()
 
     @jwt_required
     def patch(self):
@@ -77,9 +74,7 @@ class DioResource(Resource):
         dio.observacao = data['observacao']
         try:
             dio.save()
-            return {
-                'message': 'Dio {} was Updated'.format(data['id']),
-                }
+            return dio.to_json()
         except:
             raise
             return {'message': 'Something went wrong'}, 500
@@ -96,6 +91,6 @@ class DioResource(Resource):
                     dio.delete()
                     return {'message': 'Dio {} was deleted'.format(data['id'])}
                 return {'message':'Invalid Dio ID'}
-            return {'message':'Invalid password for current User.'}, 403
+            return {'message':'Invalid password for current User.'}, 412
         except:
             return {'message': 'Something went wrong'}, 500

@@ -6,7 +6,7 @@ porta_get_parser = reqparse.RequestParser()
 porta_get_parser.add_argument('id', help = 'This field cannot be blank', required=True, type=int)
 
 portas_get_parser = reqparse.RequestParser()
-portas_get_parser.add_argument('dio_id', help = 'the dio id of the ports', required=True, type=int)
+portas_get_parser.add_argument('dio_id', help = 'The DIO id of the ports', required=True, type=int)
 
 porta_post_parser = reqparse.RequestParser()
 porta_post_parser.add_argument('porta_destino_id', help = 'ID cannot be converted to integer', required=False, type=int)
@@ -29,7 +29,7 @@ class PortasResource(Resource):
     @jwt_required
     def get(self):
         data = portas_get_parser.parse_args()
-        return DioPorta.query_to_json(DioPorta.query.filter_by(dio_id=data['dio_id']), False)
+        return DioPorta.query_to_json(DioPorta.query.filter_by(dio_id=data['dio_id']))
 
 class PortaResource(Resource):
     @jwt_required
@@ -39,9 +39,8 @@ class PortaResource(Resource):
             porta = DioPorta.query.filter_by(id=data['id']).first()
             if porta:
                 return porta.to_json()
-            return {'message': 'Invalid Porta ID'}
+            return {'message': 'Invalid Porta ID'}, 400
         except:
-            raise
             return {'message': 'Something went wrong'}, 500
 
     @jwt_required
@@ -66,11 +65,9 @@ class PortaResource(Resource):
                 porta.observacao = data['observacao']
                 porta.porta_bypass_id = data['porta_bypass_id']
                 porta.save()
-                return {
-                    'message': 'Porta {} was updated'.format(data['id']),
-                }
-            return {'message':'Invalid Porta ID'}
+                return porta.to_json()
+            return {'message':'Invalid Porta ID'}, 400
         except IntegrityError as e:
-            return {'message': '{}'.format(e.orig)}
+            return {'message': '{}'.format(e.orig)}, 400
         except:
             return {'message': 'Something went wrong'}, 500
